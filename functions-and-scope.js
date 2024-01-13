@@ -1,6 +1,7 @@
 // Je gaat functies schrijven die we kunnen hergebruiken om een lijst met eindcijfers van studenten te checken. Je zult over de cijfers heen moeten itereren (hoe pak je dat aan?),
 // maar ook een manier moeten vinden om hetgeen dat je verzamelt ergens te bundelen. Op deze manier zul je ontdekken hoe je omgaat met scope. Pak vooral het hoofdstuk op EdHub over for-loops er nog eens bij!
 // Tip: je mag hier geen ingebouwde object methoden gebruiken, dus daar hoef je niet naar te kijken.
+const checkMark = checkCode => " \u2713"
 
 const grades = [9, 8, 5, 7, 7, 4, 9, 8, 8, 3, 6, 8, 5, 6];
 
@@ -13,6 +14,19 @@ const grades = [9, 8, 5, 7, 7, 4, 9, 8, 8, 3, 6, 8, 5, 6];
 // * Hoe zorg ik ervoor dat dit ook werkt wanneer de array 100 entries bevat?
 // * Hoe zorgt ik ervoor dat wanneer ik een cijfer tegenkom die aan de conditie voldoet, ik dit ergens kan bijhouden?
 // Log het antwoord in de terminal.
+
+function cumLaude (list) {
+
+    let totalCumLaude = 0 ;
+
+    for ( let i = 0 ; i < list.length ; i++) {
+
+        if ( list[i] >= 8 )
+        totalCumLaude = totalCumLaude + 1 ;
+    }
+    return totalCumLaude ;
+}
+
 
 // ---- Verwachte uitkomst: 6
 
@@ -27,8 +41,9 @@ const grades = [9, 8, 5, 7, 7, 4, 9, 8, 8, 3, 6, 8, 5, 6];
 // cumLaude([6, 4, 5]) geeft 0
 // cumLaude([8, 9, 4, 6, 10]) geeft 3
 
-
-
+console.log(cumLaude(grades) + checkMark())
+console.log(cumLaude([6, 4, 5]) + checkMark()) // geeft 0
+console.log(cumLaude([8, 9, 4, 6, 10]) + checkMark()) // geeft 3
 
 /* Opdracht  2: Gemiddeld cijfer */
 
@@ -42,24 +57,49 @@ const grades = [9, 8, 5, 7, 7, 4, 9, 8, 8, 3, 6, 8, 5, 6];
 
 // ---- Verwachte uitkomst: 6.642857142857143
 
+function averageGrade (list) {
+    let total = 0 ;
+    for ( let i = 0 ; i < list.length ; i++ ) {
+        total = list[i] + total ;
+    }
+    return total / list.length ;
+}
 
 /* 2b: Omschrijven tot een herbruikbare functie */
 // Schrijf een functie genaamd averageGrade, die een array van cijfers verwacht (zoals grades) en het gemiddelde cijfer teruggeeft. Gebruik hiervoor jouw antwoord van 2a.
 // Zorg ervoor dat jouw functie ook werkt als we een andere array willen checken, zoals bijvoorbeeld: [6, 4, 5] of [8, 9, 4, 6, 10].
 // Log het antwoord in de terminal.
 
+console.log(averageGrade(grades) + checkMark())
+console.log(averageGrade([6, 4, 5]) + checkMark())
+console.log(averageGrade([8, 9, 4, 6, 10]) + checkMark())
+
 // ---- Verwachte uitkomsten:
 // averageGrade(grades) geeft 6.642857142857143
-// averageGrade([6, 4, 5]) geeft xxxx
-// averageGrade([8, 9, 4, 6, 10]) geeft xxxx
+// averageGrade([6, 4, 5]) geeft 5
+// averageGrade([8, 9, 4, 6, 10]) geeft 7.4
 
 
 /* 2c: Afronden op twee decimalen */
 // Zorg ervoor dat het gemiddelde cijfer dat wordt teruggegeven uit de functie netjes wordt afgerond op twee decimalen.
 // Tip: Google is your best friend!
 
+function averageGradeRound (list) {
+    let add = 0 ;
+    let total = 0
+    for ( let i = 0 ; i < list.length ; i++ ) {
+        add = list[i] + add
+    }
+    total = add / list.length ;
 
+    // Ook mogelijk alleen voor toFixed gekozen omdat je daar kunt bepalen tot welke decimaal je wilt hebben
+    /*return Math.round(total * 100) / 100*/
 
+    // Additionele vraag; als ik het zo doe logt het in de terminal in het grijs bij de methode hier boven geel, transformeert het dan de INT naar een String of zit dat anders?
+    return total.toFixed(2) ;
+}
+
+console.log(averageGradeRound(grades) + checkMark())
 
 /* Bonusopdracht: hoogste cijfer */
 
@@ -70,6 +110,16 @@ const grades = [9, 8, 5, 7, 7, 4, 9, 8, 8, 3, 6, 8, 5, 6];
 // * Hoe zorgt ik ervoor dat wanneer ik een cijfer tegenkom die aan de conditie voldoet, ik dit ergens kan opslaan?
 // Log het antwoord in de terminal.
 
+function highestGrade (list) {
+    let largestNum = list[0]
+    for ( let i = 0 ; i < list.length ; i++ ) {
+        if (list[i] > largestNum) {
+            largestNum = list[i]
+        }
+    }
+    return largestNum
+}
+
 // ---- Verwachte uitkomst: 9
 
 
@@ -77,6 +127,10 @@ const grades = [9, 8, 5, 7, 7, 4, 9, 8, 8, 3, 6, 8, 5, 6];
 // Schrijf een functie genaamd highestGrade, die een array van cijfers verwacht (zoals grades) en het hoogste cijfer teruggeeft. Gebruik hiervoor jouw antwoord van 3a.
 // Zorg ervoor dat jouw functie ook werkt als we een andere array willen checken, zoals bijvoorbeeld: [6, 4, 5] of [8, 9, 4, 6, 10].
 // Log het antwoord in de terminal.
+
+console.log(highestGrade(grades) + checkMark()) // geeft 9
+console.log(highestGrade([6, 4, 5]) + checkMark()) // geeft 6
+console.log(highestGrade([8, 9, 4, 6, 10]) + checkMark()) // geeft 10
 
 // ---- Verwachte uitkomsten:
 // highestGrade(grades) geeft 9
